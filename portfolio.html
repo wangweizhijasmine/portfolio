@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>魏雨薇的作品集</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f0e8;
+  --fg: #2e1f0e;
+  --primary: #5c3820;
+  --accent: #8B6914;
+  --muted: #7a5c40;
+  --border: #c4a882;
+  --secondary: #e5dece;
+  --card: #faf7f2;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── 页面入场动画 ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fi { animation: fadeUp .5s ease both; }
+.fi-1 { animation-delay: .05s; }
+.fi-2 { animation-delay: .12s; }
+.fi-3 { animation-delay: .2s; }
+.fi-4 { animation-delay: .28s; }
+
+/* ── 顶部 Header ── */
+header {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 52px 40px 0;
+}
+
+.site-title {
+  font-family: 'Cinzel', 'Times New Roman', serif;
+  font-size: 11px;
+  letter-spacing: .42em;
+  color: var(--muted);
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: color .2s;
+}
+.site-title:hover { color: var(--primary); }
+
+.header-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+  margin: 18px 0 0;
+}
+
+/* ── 主标题区 ── */
+.hero {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 40px 0;
+}
+
+.section-label {
+  font-size: 9px;
+  letter-spacing: .45em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', 'STSong', serif;
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 400;
+  color: var(--primary);
+  line-height: 1.2;
+  letter-spacing: .02em;
+  margin-bottom: 20px;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-desc {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.8;
+  border-left: 2px solid var(--border);
+  padding-left: 16px;
+}
+
+/* ── 导航标签 ── */
+.nav-tabs {
+  max-width: 860px;
+  margin: 40px auto 0;
+  padding: 0 40px;
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-tab {
+  font-size: 9px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 10px 20px 10px 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all .2s;
+  font-family: 'Cinzel', serif;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-weight: 400;
+}
+.nav-tab:hover { color: var(--primary); }
+.nav-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* ── 文章列表 ── */
+.articles {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+}
+
+.article-card {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: all .2s;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: start;
+  text-decoration: none;
+  color: inherit;
+}
+.article-card:first-child { padding-top: 0; }
+.article-card:last-child { border-bottom: none; }
+.article-card:hover .article-title { color: var(--accent); }
+.article-card:hover .article-arrow { opacity: 1; transform: translateX(3px); }
+
+.article-meta {
+  font-size: 9px;
+  letter-spacing: .22em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-family: 'Cinzel', serif;
+}
+
+.article-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--primary);
+  line-height: 1.3;
+  margin-bottom: 10px;
+  transition: color .2s;
+  letter-spacing: .02em;
+}
+
+.article-excerpt {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 600px;
+}
+
+.article-arrow {
+  font-size: 18px;
+  color: var(--border);
+  opacity: 0;
+  transition: all .2s;
+  padding-top: 28px;
+}
+
+.article-tags {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--muted);
+  background: var(--secondary);
+  padding: 2px 8px;
+  text-transform: uppercase;
+}
+
+/* 占位文章样式 */
+.article-card.placeholder {
+  opacity: .45;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── 关于页面 ── */
+.about-section {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+  display: none;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.about-bio {
+  font-size: 13.5px;
+  color: var(--fg);
+  line-height: 1.9;
+}
+
+.about-bio p { margin-bottom: 16px; }
+.about-bio p:last-child { margin-bottom: 0; }
+
+.about-sidebar {}
+
+.about-block {
+  margin-bottom: 28px;
+}
+
+.about-block-label {
+  font-size: 9px;
+  letter-spacing: .38em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-family: 'Cinzel', serif;
+}
+
+.about-block-content {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.resume-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  transition: all .2s;
+  font-family: 'Cinzel', serif;
+  margin-top: 8px;
+}
+.resume-link:hover {
+  background: var(--primary);
+  color: var(--bg);
+  border-color: var(--primary);
+}
+
+/* ── 文章详情页 ── */
+.article-view {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+  display: none;
+}
+
+.article-back {
+  font-size: 10px;
+  letter-spacing: .2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 36px;
+  transition: color .2s;
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+}
+.article-back:hover { color: var(--primary); }
+
+.article-view-meta {
+  font-size: 9px;
+  letter-spacing: .28em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-family: 'Cinzel', serif;
+}
+
+.article-view-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 500;
+  color: var(--primary);
+  line-height: 1.25;
+  margin-bottom: 28px;
+  letter-spacing: .02em;
+}
+
+.article-view-divider {
+  width: 48px;
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 32px;
+}
+
+.article-body {
+  font-size: 14px;
+  color: var(--fg);
+  line-height: 1.9;
+}
+
+.article-body h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: .32em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin: 36px 0 14px;
+  font-weight: 500;
+}
+
+.article-body p {
+  margin-bottom: 18px;
+  color: #3a2a18;
+}
+
+.article-body p:last-child { margin-bottom: 0; }
+
+.article-body strong {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.article-body em { font-style: italic; }
+
+/* ── 页脚 ── */
+footer {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 40px 40px;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-name {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: .38em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.footer-year {
+  font-size: 10px;
+  color: var(--border);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .1em;
+}
+
+/* ── 响应式 ── */
+@media (max-width: 600px) {
+  header, .hero, .nav-tabs, .articles, .about-section, .article-view { padding-left: 20px; padding-right: 20px; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .article-card { grid-template-columns: 1fr; }
+  .article-arrow { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="fi fi-1">
+  <a class="site-title" onclick="showAbout()">魏雨薇的作品集</a>
+  <div class="header-divider"></div>
+</header>
+
+<!-- ── 主标题区 ── -->
+<div class="hero fi fi-2" id="hero-area">
+  <div class="section-label" id="hero-label">⟡ 作品集</div>
+  <h1 class="hero-title" id="hero-title">关于游戏叙事与情感设计的<br><em>收集、衍生、讨论与研究</em></h1>
+  <p class="hero-desc" id="hero-desc">从叙事结构到情感设计，从用户反应到市场逻辑——这里是我在游戏这件事上积累下来的观察。</p>
+</div>
+
+<!-- ── 导航 ── -->
+<nav class="nav-tabs fi fi-3" id="main-nav">
+  <button class="nav-tab active" onclick="switchTab('game')" id="tab-game">游戏叙事</button>
+  <button class="nav-tab" onclick="switchTab('consumer')" id="tab-consumer">消费品牌</button>
+  <button class="nav-tab" onclick="switchTab('research')" id="tab-research">产业研究</button>
+</nav>
+
+<!-- ── 文章列表 ── -->
+<main class="articles fi fi-4" id="article-list">
+</main>
+
+<!-- ── 关于页面 ── -->
+<section class="about-section fi" id="about-section">
+  <div class="about-grid">
+    <div class="about-bio">
+      <p>我在四川大学读经济学，方向是公共财政。毕业前做过三段实习——戴德梁行的产业咨询、一家科技公司的成本控制、还有一个Web3培训营的运营策划。</p>
+      <p>我关注消费品牌和游戏，玩RPG、CRPG和AVG，对叙事和用户体验有一些自己的想法。这个作品集是这些想法的载体。</p>
+      <p>有一天我想做自己的品牌。现在先把观察和思考积累下来。</p>
+      <a class="resume-link" href="#" id="resume-link" target="_blank">
+        ↗ 查看简历
+      </a>
+    </div>
+    <div class="about-sidebar">
+      <div class="about-block">
+        <div class="about-block-label">教育</div>
+        <div class="about-block-content">四川大学 · 经济学<br>公共财政方向 · 2026届</div>
+      </div>
+      <div class="about-block">
+        <div class="about-block-label">工具与方法</div>
+        <div class="about-block-content">Stata · SPSS · Excel<br>定性研究 · 深度访谈<br>问卷设计 · 数据可视化</div>
+      </div>
+      <div class="about-block">
+        <div class="about-block-label">语言</div>
+        <div class="about-block-content">中文（母语）<br>英语（流利 · IELTS 7.0）</div>
+      </div>
+      <div class="about-block">
+        <div class="about-block-label">兴趣</div>
+        <div class="about-block-content">CRPG · AVG · 国产独立游戏<br>美妆与日化品牌<br>叙事理论 · 消费者行为</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 文章详情 ── -->
+<article class="article-view fi" id="article-view">
+  <button class="article-back" onclick="backToList()">← 返回</button>
+  <div class="article-view-meta" id="view-meta"></div>
+  <h1 class="article-view-title" id="view-title"></h1>
+  <div class="article-view-divider"></div>
+  <div class="article-body" id="view-body"></div>
+</article>
+
+<footer id="main-footer">
+  <span class="footer-name">魏雨薇 · Wei Yuwei</span>
+  <span class="footer-year">2026</span>
+</footer>
+
+<script>
+// ── 文章数据 ──
+const ARTICLES = {
+  game: [
+    {
+      id: 'dongshihuo',
+      title: '《洞石火》：情感暴力作为叙事策略',
+      meta: '游戏评论 · 国产独立AVG',
+      excerpt: '北魏六镇。国产AVG里罕见的坐标。让玩家感到恶心想吐，有时候比让玩家感到快乐更难，也更值得研究。',
+      tags: ['叙事分析', '情感设计', '国产独立游戏', '北魏'],
+      placeholder: false,
+      body: `
+        <h2>一、背景的选择就是立场</h2>
+        <p>北魏六镇。国产AVG里罕见的坐标。</p>
+        <p>唐宋明清早已被反复书写，那些朝代的文化符号在玩家记忆里沉淀已久，稍一调用便能激活现成的情感联想。六镇不同。它陌生、粗粝，族群混杂，阶层随时崩塌。巴赫金所说的"时空体"——叙事中时间与空间的特定结合方式——在这里呈现为一种结构性的不稳定。身份可以被剥夺，归属可以被切断，这种不稳定性不是背景装饰，而是游戏核心主题的历史基底。</p>
+        <p>选择六镇，就是选择了一种叙事的暴烈底色。</p>
+
+        <h2>二、双线结构：堆砌与破坏</h2>
+        <p>青青线在前，阿奴线在后。这个顺序不是建议，是设计。</p>
+        <p>经典叙事学将叙事结构区分为"加法叙事"与"减法叙事"——前者不断为读者增添信息，后者则通过揭示使已有认知瓦解。青青线接近前者，玩家在关系网络中逐渐累积情感；阿奴线是后者，它不提供新信息，它拆解旧判断。</p>
+        <p>先玩青青线的玩家进入阿奴线时会经历认知摩擦。这种摩擦有一个更准确的名字：叙事创伤。不是指向角色的，是指向玩家自身认知框架的。游戏在结构层面完成了一次对玩家阅读习惯的攻击。</p>
+
+        <h2>三、角色作为行为模式，而非性格标签</h2>
+        <p>阿奴与青青的区别，不在于性格，在于应对机制。</p>
+        <p>阿奴的逻辑是正面冲突。依赖强力，直到强力耗尽。这接近弗洛伊德意义上的"死亡驱力"——一种将自我推向极限的冲动，以摧毁来确认存在。青青的逻辑是持续回避。把自己的处置权交出去，交给他人，交给命运，交给执念。不做主动选择，是一种消极的主体性放弃。</p>
+        <p>两种机制在游戏中被推到各自的逻辑终点。游戏问的问题始终只有一个：人应当做爱的奴隶，还是力量的奴隶？它不回答。它让两条线分别走到尽头，然后把问题留给玩家。</p>
+        <p>这是布莱希特所说的"间离效果"的变体——不让玩家沉浸在单一视角里，而是通过视角的切换制造反思距离。</p>
+
+        <h2>四、情感暴力与受众分层</h2>
+        <p>有玩家评价：玩完感觉恶心想吐，说不出话来。</p>
+        <p>这是对这款游戏的准确描述，也是它的最高成就。</p>
+        <p>苏珊·桑塔格在《关于他人的痛苦》中讨论过一个问题：呈现痛苦的图像，其目的是唤起同情还是制造麻木？《洞石火》给出了第三种答案——制造无法消化的不适，使玩家无法轻易完成情感处理，从而被迫长时间停留在作品留下的余震里。</p>
+        <p>能引发生理层面反应的叙事，往往比始终维持舒适体验的叙事更难被遗忘。《洞石火》的口碑传播不是"这个游戏很好"，而是"这个游戏让我说不出话"。对资源有限的独立游戏而言，这种强烈的个体情绪反应比广泛传播更有价值——它制造的不是受众，是信徒。</p>
+
+        <h2>五、母性意象的系统性运用</h2>
+        <p>游戏里反复出现一个结构：母亲给予，母亲夺走。</p>
+        <p>阿鹿桓氏求子不得；妾室生了孩子，折磨随之而来；青青的母亲带走了孩子，这项权力在她死后依旧生效；阿春的孩子早夭；青青自己，生不出孩子。这不是巧合，是主题的蓄意重复。精神分析叙事学将这类反复出现的意象称为"症候式文本"——表面情节之下存在一个无法被直接言说的核心焦虑，只能通过不断变奏的意象侧面逼近。</p>
+        <p>《洞石火》的核心焦虑是母性权力的绝对性。能生也能杀。能给予也能收回。这个世界不是daddy issue，是mommy issue。这个区别，在叙事传统里比看起来更罕见，也更诚实。</p>
+
+        <h2>结语</h2>
+        <p>《洞石火》证明了一件事：小体量独立游戏可以在叙事密度和情感设计的复杂度上超越大多数商业产品。它的价值不在于北魏背景的稀缺性，而在于它知道自己想伤害谁，并且做到了。</p>
+      `
+    },
+    {
+      id: 'placeholder-game-2',
+      title: '即将更新',
+      meta: '游戏机制分析',
+      excerpt: '下一篇文章正在撰写中。',
+      tags: [],
+      placeholder: true,
+      body: ''
+    }
+  ],
+  consumer: [
+    {
+      id: 'placeholder-consumer-1',
+      title: '即将更新',
+      meta: '品牌分析',
+      excerpt: '关于品牌、消费者行为与市场洞察的分析正在撰写中。',
+      tags: [],
+      placeholder: true,
+      body: ''
+    }
+  ],
+  research: [
+    {
+      id: 'placeholder-research-1',
+      title: '即将更新',
+      meta: '产业研究',
+      excerpt: '关于产业观察与用户研究的内容正在撰写中。',
+      tags: [],
+      placeholder: true,
+      body: ''
+    }
+  ]
+};
+
+const HERO_CONTENT = {
+  game: {
+    label: '⟡ 游戏叙事与情感设计',
+    title: '关于游戏叙事与情感设计的<br><em>收集、衍生、讨论与研究</em>',
+    desc: '从叙事结构到情感设计，从用户反应到市场逻辑——这里是我在游戏这件事上积累下来的观察。'
+  },
+  consumer: {
+    label: '⟡ 品牌与消费者行为',
+    title: '关于品牌、消费者行为与市场洞察的<br><em>收集、衍生、讨论与研究</em>',
+    desc: '品牌在对谁说话、用什么逻辑说服她——这里是我围绕这个问题积累下来的分析与观察。'
+  },
+  research: {
+    label: '⟡ 产业观察与用户研究',
+    title: '关于产业观察与用户研究的<br><em>收集、衍生、讨论与研究</em>',
+    desc: '定量方法与深度访谈并用，从数据到洞察——这里是这个方法在不同题材上的实践。'
+  }
+};
+
+// ── 状态 ──
+let currentTab = 'game';
+let isAbout = false;
+let isArticle = false;
+
+// ── 初始化：读取URL参数 ──
+function init() {
+  const params = new URLSearchParams(window.location.search);
+  const forParam = params.get('for');
+  if (forParam && ARTICLES[forParam]) {
+    currentTab = forParam;
+  }
+  renderTab(currentTab);
+  updateTabButtons(currentTab);
+}
+
+// ── 切换标签 ──
+function switchTab(tab) {
+  currentTab = tab;
+  isAbout = false;
+  isArticle = false;
+  showMainView();
+  renderTab(tab);
+  updateTabButtons(tab);
+  // 更新URL不刷新页面
+  const url = new URL(window.location);
+  url.searchParams.set('for', tab);
+  window.history.replaceState({}, '', url);
+}
+
+function updateTabButtons(tab) {
+  document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.getElementById('tab-' + tab);
+  if (activeBtn) activeBtn.classList.add('active');
+}
+
+function renderTab(tab) {
+  const hero = HERO_CONTENT[tab];
+  document.getElementById('hero-label').textContent = hero.label;
+  document.getElementById('hero-title').innerHTML = hero.title;
+  document.getElementById('hero-desc').textContent = hero.desc;
+
+  const list = document.getElementById('article-list');
+  const articles = ARTICLES[tab] || [];
+  list.innerHTML = articles.map(a => `
+    <div class="article-card ${a.placeholder ? 'placeholder' : ''}"
+      ${!a.placeholder ? `onclick="openArticle('${tab}','${a.id}')"` : ''}>
+      <div>
+        <div class="article-meta">${a.meta}</div>
+        <div class="article-title">${a.title}</div>
+        <div class="article-excerpt">${a.excerpt}</div>
+        ${a.tags.length ? `<div class="article-tags">${a.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>` : ''}
+      </div>
+      ${!a.placeholder ? '<div class="article-arrow">→</div>' : ''}
+    </div>
+  `).join('');
+}
+
+// ── 打开文章 ──
+function openArticle(tab, id) {
+  const article = ARTICLES[tab].find(a => a.id === id);
+  if (!article || article.placeholder) return;
+
+  document.getElementById('view-meta').textContent = article.meta;
+  document.getElementById('view-title').textContent = article.title;
+  document.getElementById('view-body').innerHTML = article.body;
+
+  document.getElementById('hero-area').style.display = 'none';
+  document.getElementById('main-nav').style.display = 'none';
+  document.getElementById('article-list').style.display = 'none';
+  document.getElementById('about-section').style.display = 'none';
+  document.getElementById('article-view').style.display = 'block';
+  isArticle = true;
+  window.scrollTo(0, 0);
+}
+
+// ── 返回列表 ──
+function backToList() {
+  isArticle = false;
+  showMainView();
+}
+
+// ── 关于页面 ──
+function showAbout() {
+  isAbout = !isAbout;
+  if (isAbout) {
+    document.getElementById('hero-area').style.display = 'none';
+    document.getElementById('main-nav').style.display = 'none';
+    document.getElementById('article-list').style.display = 'none';
+    document.getElementById('article-view').style.display = 'none';
+    document.getElementById('about-section').style.display = 'block';
+
+    // 更新hero为关于
+    document.getElementById('hero-label');
+  } else {
+    showMainView();
+  }
+}
+
+function showMainView() {
+  document.getElementById('hero-area').style.display = 'block';
+  document.getElementById('main-nav').style.display = 'flex';
+  document.getElementById('article-list').style.display = 'block';
+  document.getElementById('about-section').style.display = 'none';
+  document.getElementById('article-view').style.display = 'none';
+  renderTab(currentTab);
+  window.scrollTo(0, 0);
+}
+
+// ── 启动 ──
+init();
+</script>
+</body>
+</html>
